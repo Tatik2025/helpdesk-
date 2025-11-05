@@ -3,16 +3,17 @@ from django.conf import settings
 from django.contrib.auth.models import User, AbstractUser
 
 
-
 class Priority(models.Model):
     name = models.CharField(max_length=30)
     deadline = models.IntegerField(blank=False, null=False, default=0)
+    order = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
 
 class Status(models.Model):
     name = models.CharField(max_length=30)
+    order = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -50,10 +51,10 @@ class Type_task(models.Model):
 class Task(models.Model):
     theme = models.CharField(max_length=100, null=True)
     description = models.CharField(max_length=1000, null=True)
-    created_at = models.DateTimeField(null=True,auto_now_add=True)
-    completion_Date_actual = models.DateTimeField(auto_now_add=True)
-    completion_Date_plan = models.DateTimeField(auto_now_add=True)
-    Date_of_Adoption = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(null=True)
+    completion_Date_actual = models.DateTimeField(null=True)
+    completion_Date_plan = models.DateTimeField(null=True)
+    date_of_Adoption = models.DateTimeField(null=True)
     priority_id = models.ForeignKey(
         'Priority',
             on_delete=models.PROTECT,
